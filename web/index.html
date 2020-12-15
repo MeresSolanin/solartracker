@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/water.css@2/out/water.css">
+		<title>solartracker - private BitTorrent tracker generation</title>
+				<script>
+					function makeRoom(length) {
+                        var roomID = ";
+                        var characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                        var charactersLength = characters.length;
+                        for (var i = 0; i < length; i++) {
+                            roomID += characters.charAt(Math.floor(Math.random() * charactersLength));
+                        }
+                        var urls = document.getElementsByClassName('url');
+                        for (var i = 0; i < urls.length; i++) {
+                            urls[i].innerText.replace('{{room}}', roomID);
+                        }
+
+                        document.getElementById('hidden').style.display = 'block';
+                    }
+                    function copyToClipboard() {
+                        navigator.clipboard.writeText(document.getElementsByClassName('url')[0].innerText);
+                    }
+                </script>
+    </head>
+
+    <body>
+        <nav style="float: right">
+            <a href="https://github.com/MeresSolanin/solartracker">Source code</a>
+        </nav>
+
+        <div>
+            <h1>solartracker</h1>
+            <h2>private BitTorrent tracker generation</h2>
+            <p>
+                solartracker allows to share torrent files just with your friends, nobody else. 
+		Unlike public trackers, it shares peers only within a group which is using the same Announce URL. 
+		It's basically just a private tracker, but can be generated with one click.
+	    </p>
+
+	    <button onclick="makeRoom(16)">Alright, let's do this! Generate a private tracker for me!</button>
+
+	    <div id="hidden" style="display:none">
+		    <h3>Your announce URL:</h3>
+		    <code class="url">http://solartracker.rf.gd/{{room}}/announce</code>
+		    <button onclick="copyToClipboard()">Copy to clipboard</button>
+	    </div>
+	    <div>
+
+	    </div>
+	    <h2>Sooooooo, how do I create a private torrent now?</h2>
+	    <h3>Using <a href="https://transmissionbt.com/" target="_blank">transmission</a> on Linux:</h3>
+	    <ul>
+		    <li>File <b>&rarr;</b> New&hellip;</li>
+		    <li>Select file to share</li>
+		    <li>In <b>Trackers</b> field enter <code class="url">http://solartracker.rf.gd/{{room}}/announce</code></li>
+		    <li>Select <b>Private torrent</b></li>
+		    <li>Click <b>New</b></li>
+		    <li>Click <b>Add</b> in next window</li>
+		    <li>Click <b>Open</b> to start seeding</li>
+		    <li>Done. Now you can send that torrent file to all your friends.&hellip;</li>
+	    </ul>
+	</div>
+</body>
+</html>
